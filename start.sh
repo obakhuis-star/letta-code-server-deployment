@@ -11,4 +11,11 @@
     ZSwiYmluZGluZyI6eyJhZ2VudElkIjpudWxsLCJjb252ZXJz
     YXRpb25JZCI6bnVsbH19XX0=
     EOF
+    base64 -d > /root/.letta/channels/telegram/routing.yaml << 'EOF'
+    cm91dGVzOgogIC0gYWNjb3VudElkOiAiNTg3YzQzZDktNmVi
+    ZC00N2EyLTgwYjYtZGJlZDg0ODI3ZjA0IgogICAgY2hhdElk
+    OiAiODM2MTk3OTcyMiIKICAgIGFnZW50SWQ6ICJhZ2VudC0z
+    OWI5ZDNlYy1jMTY4LTRkZTktYWFjNi1iOTI1MTU3ZjE5MDUi
+    CiAgICBlbmFibGVkOiB0cnVlCg==
+    EOF
     letta server --env-name "$ENV_NAME" --channels telegram
