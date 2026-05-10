@@ -23,4 +23,4 @@ RUN set -eux; \
 ENV ENV_NAME="cloud"
 ENV LETTA_RESTORE_ENABLED_CHANNELS="1"
 COPY start.sh /start.sh
-CMD ["sh", "-c", "sh start.sh"]
+CMD ["sh", "-c", "sh /start.sh"]
