@@ -1,26 +1,22 @@
 FROM oven/bun:slim
 
-# Install Letta Code
-# git: required at runtime for memory sync
-# python3: required at runtime for skills (e.g. Discord)
-ENV BUN_INSTALL_GLOBAL_DIR=/opt/letta-code
+    ENV BUN_INSTALL_GLOBAL_DIR=/opt/letta-code
 
-# The GitHub workflow keeps this file at the latest published npm version.
-# Railway services connected to this repo can then auto-deploy from Git commits
-# instead of staying pinned to the version baked into the first build.
-ARG LETTA_CODE_VERSION=""
-COPY letta-code-version.txt /tmp/letta-code-version.txt
+    ARG LETTA_CODE_VERSION=""
+    COPY letta-code-version.txt /tmp/letta-code-version.txt
 
-RUN set -eux; \
-    apt-get update; \
-    apt-get install -y git python3 make g++; \
-    version="${LETTA_CODE_VERSION:-$(cat /tmp/letta-code-version.txt)}"; \
-    bun install -g "@letta-ai/letta-code@${version}"; \
-    apt-get purge -y make g++; \
-    apt-get autoremove -y; \
-    rm -rf /var/lib/apt/lists/*
+    RUN set -eux; \
+     apt-get update; \
+     apt-get install -y git python3 make g++; \
+     version="${LETTA_CODE_VERSION:-$(cat /tmp/letta-code-version.txt)}"; \
+     bun install -g "@letta-ai/letta-code@${version}"; \
+     apt-get purge -y make g++; \
+     apt-get autoremove -y; \
+     rm -rf /var/lib/apt/lists/*
 
-ENV ENV_NAME="cloud"
-ENV LETTA_RESTORE_ENABLED_CHANNELS="1"
-COPY start.sh /start.sh
-CMD ["sh", "-c", "sh /start.sh"]
+    ENV ENV_NAME="cloud"
+    ENV LETTA_RESTORE_ENABLED_CHANNELS="1"
+
+    COPY start.sh /start.sh
+    RUN chmod +x /start.sh
+    CMD ["/start.sh"]
