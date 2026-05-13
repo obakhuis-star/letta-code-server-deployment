@@ -1,21 +1,20 @@
 #!/bin/sh
 mkdir -p /root/.letta/channels/telegram
-base64 -d > /root/.letta/channels/telegram/accounts.json << 'EOF'
-eyJhY2NvdW50cyI6W3siY2hhbm5lbCI6InRlbGVncmFtIiwi
-YWNjb3VudElkIjoiNTg3YzQzZDktNmViZC00N2EyLTgwYjYt
-ZGJlZDg0ODI3ZjA0IiwiZGlzcGxheU5hbWUiOiJAT3JsYW5k
-b19vcGFfYm90IiwiZW5hYmxlZCI6dHJ1ZSwidG9rZW4iOiI4
-NTUxMzEyNDc0OkFBR0sybnhheVRmbkZLQ2hNdXAwREU2cGJ1
-ZU9fRVJ5djFvIiwiZG1Qb2xpY3kiOiJwYWlyaW5nIiwiYWxs
-b3dlZFVzZXJzIjpbXSwidHJhbnNjcmliZVZvaWNlIjpmYWxz
-ZSwiYmluZGluZyI6eyJhZ2VudElkIjpudWxsLCJjb252ZXJz
-YXRpb25JZCI6bnVsbH19XX0=
-EOF
-base64 -d > /root/.letta/channels/telegram/routing.yaml << 'EOF'
-cm91dGVzOgogIC0gYWNjb3VudElkOiAiNTg3YzQzZDktNmVi
-ZC00N2EyLTgwYjYtZGJlZDg0ODI3ZjA0IgogICAgY2hhdElk
-OiAiODM2MTk3OTcyMiIKICAgIGFnZW50SWQ6ICJhZ2VudC0z
-OWI5ZDNlYy1jMTY4LTRkZTktYWFjNi1iOTI1MTU3ZjE5MDUi
-CiAgICBlbmFibGVkOiB0cnVlCg==
-EOF
+F=/root/.letta/channels/telegram/accounts.json
+printf '%s' '{"accounts":[{"channel":"telegram",' > $F
+printf '%s' '"accountId":"587c43d9-6ebd-47a2-' >> $F
+printf '%s' '80b6-dbed84827f04",' >> $F
+printf '%s' '"displayName":"@Orlando_opa_bot",' >> $F
+printf '%s' '"enabled":true,' >> $F
+printf '%s' '"token":"8551312474:AAGK2nxayTfnFKChMup0DE6pbueO_ERyv1o",' >> $F
+printf '%s' '"dmPolicy":"pairing",' >> $F
+printf '%s' '"allowedUsers":[],"transcribeVoice":false,' >> $F
+printf '%s' '"binding":{"agentId":null,"conversationId":null}}]}' >> $F
+printf '\n' >> $F
+R=/root/.letta/channels/telegram/routing.yaml
+printf '%s\n' 'routes:' > $R
+printf '%s\n' '  - accountId: "587c43d9-6ebd-47a2-80b6-dbed84827f04"' >> $R
+printf '%s\n' '    chatId: "8361979722"' >> $R
+printf '%s\n' '    agentId: "agent-39b9d3ec-c168-4de9-aac6-b925157f1905"' >> $R
+printf '%s\n' '    enabled: true' >> $R
 letta server --env-name "$ENV_NAME" --channels telegram
