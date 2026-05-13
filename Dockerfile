@@ -1,4 +1,5 @@
 FROM oven/bun:slim
+# v2
 
 ENV BUN_INSTALL_GLOBAL_DIR=/opt/letta-code
 
