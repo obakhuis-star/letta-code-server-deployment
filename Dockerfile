@@ -19,4 +19,11 @@ FROM oven/bun:slim
 
     COPY start.sh /start.sh
     RUN chmod +x /start.sh
-    CMD ["/start.sh"]
+     CMD ["sh", "-c", "mkdir -p /root/.letta/channels/telegram && printf '%s'
+    '{\"accounts\":[{\"channel\":\"telegram\",\"accountId\":\"587c43d9-6ebd-47a2
+    -80b6-dbed84827f04\",\"displayName\":\"@Orlando_opa_bot\",\"enabled\":true,\
+    "token\":\"8551312474:AAGK2nxayTfnFKChMup0DE6pbueO_ERyv1o\",\"dmPolicy\":\"p
+    airing\",\"allowedUsers\":[],\"transcribeVoice\":false,\"binding\":{\"agentI
+    d\":null,\"conversationId\":null}}]}' >
+    /root/.letta/channels/telegram/accounts.json && letta server --env-name
+    \"$ENV_NAME\" --channels telegram"]
