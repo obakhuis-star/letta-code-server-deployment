@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 mkdir -p /root/.letta/channels/telegram
 F=/root/.letta/channels/telegram/accounts.json
 printf '%s' '{"accounts":[{"channel":"telegram",' > $F
@@ -11,10 +12,17 @@ printf '%s' '"dmPolicy":"pairing",' >> $F
 printf '%s' '"allowedUsers":[],"transcribeVoice":false,' >> $F
 printf '%s' '"binding":{"agentId":null,"conversationId":null}}]}' >> $F
 printf '\n' >> $F
+echo "=== accounts.json ==="
+cat $F
+echo "=== end ==="
 R=/root/.letta/channels/telegram/routing.yaml
 printf '%s\n' 'routes:' > $R
 printf '%s\n' '  - accountId: "587c43d9-6ebd-47a2-80b6-dbed84827f04"' >> $R
 printf '%s\n' '    chatId: "8361979722"' >> $R
 printf '%s\n' '    agentId: "agent-39b9d3ec-c168-4de9-aac6-b925157f1905"' >> $R
 printf '%s\n' '    enabled: true' >> $R
+echo "=== routing.yaml ==="
+cat $R
+echo "=== end ==="
+echo "=== HOME=$HOME ==="
 letta server --env-name "$ENV_NAME" --channels telegram
